@@ -1,0 +1,11 @@
+by 32位labview用32位库
+
+我不会在github搞引用，所以这里说明一下从别人仓库额外引用的部分。
+
+在这里（includes）目录下，
+还需要一个PicoScope2000aLib文件夹，它来自
+https://github.com/picotech/picosdk-ni-labview-examples/tree/master/ps2000a/PicoScope2000aLib
+还需要一个shared文件夹，它来自
+https://github.com/picotech/picosdk-ni-labview-shared
+
+其实本来我是不想用这些额外的子vi的，但他们提供的例程太省事了。
