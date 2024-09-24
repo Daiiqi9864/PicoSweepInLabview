@@ -8,6 +8,8 @@ Freqency sweep in Labview. Support dq-frame and positive-negative-sequence mode.
 
 这个仓库将在我申请到专利之后公开。
 
+更新：寄了，专利说明书都写完了才知道这个涉及的算法多多少少都有大佬写过，只能申软著了。
+
 ## 它需要的软件与硬件支持有：
 
 （我不会弄这个，这些都是我预估的。可能有多，可能有少）
@@ -68,7 +70,7 @@ myPICO_Open.vi, my_PICO_run.vi, myPICO_close.vi 是在 PICO 官方例程 PicoSco
 
 ### 7. 与DSP间的串口在扫频循环内的打开、通信、关闭
 
-在每次扫频内，在开启PICO采样之前，需通过串口告知DSP需要输出的频点组，并等待至硬件电路到达稳定。myCommOpen.vi, myCommOut.vi, myCommClose.vi 调用 Labview 的附加库 modbus library，实现 RS485 MODBUS 协议的通信功能。按照注入的频率与设置的幅值选项，按照的方式向 DSP 输出信息。与DSP间通信方式：
+在每次扫频内，在开启PICO采样之前，需通过串口告知DSP需要输出的频点组，并等待至硬件电路到达稳定。myCommOpen.vi, myCommOut.vi, myCommClose.vi 调用 Labview 的附加库 modbus library，实现 RS485 MODBUS 协议的通信功能。按照注入的频率与设置的幅值选项，按照以下的方式向 DSP 输出信息。与DSP间通信方式：
 
 	开启：
 		开启串口
@@ -106,7 +108,7 @@ myPICO_Open.vi, my_PICO_run.vi, myPICO_close.vi 是在 PICO 官方例程 PicoSco
 
 根据 4 计算得的FFT索引，myFFT_RowSave.vi 处理扫频结果并计算各模式所需的响应，从FFT分解结果中提取所需的频域矢量。这个功能模块对程序来说也很重要。三相的两个模式有特殊的响应计算方式：
 
-- 在正负序下，由于待测频率通过正负半轴来表达正负序，因此耦合频率统一通过减去基波频率来计算；通过相位位移叠加提取相序表达的信号。
 - 在同步系下，先对同步信号进行FFT提取基波相位信号，再将其转换成时域的同步系坐标变换矩阵，作用于采样，得到d、q轴分量。对d、q轴分量进行原频率的FFT分解，即得同步系信号。
+- 在正负序下，由于待测频率通过正负半轴来表达正负序，因此耦合频率统一通过减去基波频率来计算；通过相位位移叠加提取相序表达的信号。
 
-myBodePlot.vi 显示扫频结果。 myCSVWrite.vi 将扫频结果存入CSV表格内。第1列为频率，往后，偶数列为幅值（未取dB的绝对值），奇数列为相位（180角度值）。具体模式下的响应顺序可在程序界面里确认。
+myBodePlot.vi 显示扫频结果。 myCSVWrite.vi 将扫频结果存入CSV表格内。第1列为频率，往后，偶数列为幅值（未取dB的绝对值），奇数列为相位（180角度制）。具体模式下的响应顺序可在程序界面里确认。
